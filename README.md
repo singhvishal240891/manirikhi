@@ -1,0 +1,2 @@
+# manirikhi
+project code setup
