@@ -19,6 +19,8 @@ import com.crowdsourcing.service.WorkerService;
 @Controller
 public class UserLoginController {
 
+	private static final String WORKER = "worker";
+	private static final String CLIENT = "client";
 	@Autowired
 	WorkerService workerService;	
 
@@ -27,13 +29,19 @@ public class UserLoginController {
 	@RequestMapping(value = "/validate", method = RequestMethod.POST)
 	public String validateUser(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) {
-
+		String type = request.getParameter("userType");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");				
-		
+		String clientId = "";
+		String workerId = "";
 		try {
-			String workerId = workerService.signIn(email, password);			
-			String clientId = clientService.signIn(email, password);
+			if(CLIENT.equalsIgnoreCase(type)){
+				clientId = clientService.signIn(email, password);
+			}
+			if(WORKER.equalsIgnoreCase(type)){
+				workerId = workerService.signIn(email, password);
+			}
+				
 			if (StringUtils.isNotBlank(workerId)) {
 				storeCookies(email,workerId,"details-worker.jsp",response);
 				session.setAttribute("fileName", "details-worker.jsp");							
@@ -42,7 +50,7 @@ public class UserLoginController {
 				session.setAttribute("fileName", "details-client.jsp");				
 			} else{
 				session.setAttribute("message", "Wrong user email or password!");
-				storeCookies(email,null,"details-view.jsp",response);
+				storeCookies(null,null,"details-view.jsp",response);
 				session.setAttribute("fileName", "details-view.jsp");
 			}
 		} catch (CoreException e) {

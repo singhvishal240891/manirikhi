@@ -9,7 +9,7 @@
 								<li ui-sref-active="current"><a ui-sref="tasks">Task List</a></li>
 								<li ui-sref-active="current"><a ui-sref="workers" ng-click="getWorkers()">Workers</a></li>
 								<li ui-sref-active="current"><a ui-sref="aboutUs">About Us</a></li>
-								<li ui-sref-active="current"><a ng-click="login()">Login</a></li>
+								<li><a ng-click="login()">Login</a></li>
 								<li ui-sref-active="current"><a ui-sref="register">Sign Up</a></li>
 							</ul>
 						</nav>

@@ -11,5 +11,8 @@ public class ClientDAO extends AbstractDAO<Client>{
 	public ClientDAO() {
 		super(Client.class);
 	}	
+	
+	/*public boolean findByEmail(){
 		
+	}*/
 }

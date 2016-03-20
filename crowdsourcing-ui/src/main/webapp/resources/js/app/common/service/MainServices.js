@@ -16,8 +16,7 @@ app.service('mainService', [ '$http', function($http) {
 	};
 	
 	this.getUserById = function(userId,userType){
-		
-		alert(userType);
+
 		if(userType.indexOf('client') > -1 ){
 			alert('client');
 			return $http.get('client.ajax',{params:{ clientId : userId }});				
