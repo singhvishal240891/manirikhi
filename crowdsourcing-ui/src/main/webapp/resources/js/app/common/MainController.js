@@ -16,7 +16,10 @@
     	console.log('main Controller');
     	$rootScope.user = {};
     	$rootScope.disable = true;
-    	$rootScope.isClient = userType.indexOf('client') > -1 ? true : false;
+    	if( $cookies.type){
+    		$rootScope.isClient = $cookies.type.indexOf('client') > -1 ? true : false;
+    	}
+    	
     	$rootScope.login = function(){
 			dialogs.create('resources/templates/login.html','UserLoginController',{},{size:'md'});
 		};
