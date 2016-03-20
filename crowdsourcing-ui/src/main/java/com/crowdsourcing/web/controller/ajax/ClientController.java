@@ -32,7 +32,7 @@ public class ClientController {
 		return new ResponseEntity<List<Client>>(clientService.getClients(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/client", method = RequestMethod.POST)	
+	@RequestMapping(value="/client", method = RequestMethod.GET)	
 	public ResponseEntity<Client> getClientById(@RequestParam("clientId") String clientId) throws CoreException {		
 		return new ResponseEntity<Client>(clientService.getById(clientId), HttpStatus.OK);
 	}
