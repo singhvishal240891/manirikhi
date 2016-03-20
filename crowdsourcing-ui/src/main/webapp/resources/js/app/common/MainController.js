@@ -14,6 +14,7 @@
                                      function($scope, $rootScope, $cookies, userService, mainService,$location,$modal,dialogs,localStorageService) {
 
     	console.log('main Controller');
+    	$rootScope.userName = $cookies.email;
     	$rootScope.user = {};
     	$rootScope.disable = true;
     	if( $cookies.type){
@@ -33,7 +34,17 @@
 			$rootScope.user.details.isActive = true;
 			$rootScope.user.workExperience = 0;
 			$rootScope.user.workCredibility = 0.5;
-			mainService.saveUser($rootScope.user);
+			mainService.saveUser($rootScope.user)
+			.then(
+					function(data) {
+						if (data.data) {
+							dialogs.notify('Notification','Registeration successfully!',{size:'sm'});
+							$rootScope.user = {};
+							$scope.userForm.$setPristine();
+						} else {
+							dialogs.notify('Notification','Error while saving User details!',{size:'sm'});
+						}
+					});
 		};
 		
 		$rootScope.enableEdit = function(){
