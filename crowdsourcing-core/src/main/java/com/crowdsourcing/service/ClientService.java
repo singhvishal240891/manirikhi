@@ -16,7 +16,6 @@ public interface ClientService {
 	public List<Client> getClients() throws CoreException;
 	public Client getById(final String id) throws CoreException;	
 	public Boolean updateClient(Client client) throws CoreException;
-	public Boolean createTask(Task task) throws CoreException;	
-	public Boolean submitRatings(Double rating,String taskId,String workerId) throws CoreException;
+	public Boolean createTask(Task task) throws CoreException;		
 	
 }

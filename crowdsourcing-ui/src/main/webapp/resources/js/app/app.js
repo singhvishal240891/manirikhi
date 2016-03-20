@@ -29,12 +29,30 @@
 				}
 			}
 		})
+		.state('userTasks', {
+			url : '/userTasks',
+			views:{
+				'mainView':{
+					templateUrl : 'resources/templates/user-tasks.html',
+					controller : 'UserTaskController'
+				}
+			}
+		})
 		.state('createTask', {
 			url : '/createTask',
 			views:{
 				'mainView':{
 					templateUrl : 'resources/templates/task-create.html',
 					controller : 'TaskController'
+				}
+			}
+		})
+		.state('availableTasks', {
+			url : '/availableTasks',
+			views:{
+				'mainView':{
+					templateUrl : 'resources/templates/available-tasks.html',
+					controller : 'AvailableTaskController'
 				}
 			}
 		})

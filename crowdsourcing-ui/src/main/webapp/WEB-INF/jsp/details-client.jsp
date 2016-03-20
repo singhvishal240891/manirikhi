@@ -6,7 +6,7 @@
 						<nav id="nav">
 							<ul>
 								<li ui-sref-active="current"><a ui-sref="index">Home</a></li>
-								<li ui-sref-active="current"><a ui-sref="tasks">My Task List</a></li>
+								<li ui-sref-active="current"><a ui-sref="userTasks">My Task List</a></li>
 								<li ui-sref-active="current"><a ui-sref="createTask">Create Task</a></li>
 								<li ui-sref-active="current"><a ui-sref="profile" ng-click = "getUserById()">My Profile</a></li>
 								<li >Welcome :- {{userName}}</li>

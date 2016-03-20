@@ -15,7 +15,6 @@ public interface WorkerService {
 	public List<Worker> getAllWorkers() throws CoreException;
 	public Worker getById(String id) throws CoreException;
 	public Boolean updateWroker(Worker worker) throws CoreException;
-	public Worker getWorkerDetails(String workerId) throws CoreException;
-	public Boolean acceptTask(String taskId,String workerId) throws CoreException;	
-	public Boolean markTaskCompleted(String taskId,String workerId) throws CoreException;	
+	public Worker getWorkerDetails(String workerId) throws CoreException;		
+	public List<Task> getAvailableTasks(String workerId) throws CoreException;
 }

@@ -40,6 +40,11 @@ public class WorkerController {
 		return new ResponseEntity<Worker>(workerService.getById(workerId), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/worker/tasks", method = RequestMethod.GET)	
+	public ResponseEntity<List<Task>> getTasksForWorker(@RequestParam("workerId") String workerId) throws CoreException {		
+		return new ResponseEntity<List<Task>>(workerService.getAvailableTasks(workerId), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/worker/create", method = RequestMethod.POST)	
 	public ResponseEntity<Boolean> createTask(@RequestBody Worker worker) throws CoreException {		
 		return new ResponseEntity<Boolean>(workerService.signUp(worker), HttpStatus.CREATED);

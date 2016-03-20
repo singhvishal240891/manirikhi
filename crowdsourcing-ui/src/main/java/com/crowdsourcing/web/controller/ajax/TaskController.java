@@ -34,7 +34,7 @@ public class TaskController {
 	}
 	
 	//get all tasks for user
-	@RequestMapping(value="/tasks", method = RequestMethod.POST)	
+	@RequestMapping(value="/taskList", method = RequestMethod.GET)	
 	public ResponseEntity<List<Task>> getTaskPerUser(@RequestParam("userId") String userId) throws CoreException {		
 			return new ResponseEntity<List<Task>>(taskService.getTasksPerUser(userId), HttpStatus.OK);					
 	}
@@ -44,5 +44,28 @@ public class TaskController {
 			
 		return new ResponseEntity<Boolean>(clientService.createTask(task), HttpStatus.CREATED);
 	}
+	
+	@RequestMapping(value="/task/accept", method = RequestMethod.GET)	
+	public ResponseEntity<Boolean> acceptTask(@RequestParam("taskId") String taskId,@RequestParam("workerId") String workerId) throws CoreException {								
+			
+		return new ResponseEntity<Boolean>(taskService.acceptTask(taskId, workerId), HttpStatus.CREATED);
+	}	
+	
+	@RequestMapping(value="/task/reject", method = RequestMethod.GET)	
+	public ResponseEntity<Boolean> rejectTask(@RequestParam("taskId") String taskId,@RequestParam("workerId") String workerId) throws CoreException {								
+			
+		return new ResponseEntity<Boolean>(taskService.rejectTask(taskId, workerId), HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value="/task/completed", method = RequestMethod.GET)	
+	public ResponseEntity<Boolean> markTaskCompleted(@RequestParam("taskId") String taskId,@RequestParam("workerId") String workerId) throws CoreException {								
+			
+		return new ResponseEntity<Boolean>(taskService.markTaskCompleted(taskId, workerId), HttpStatus.CREATED);
+	}
 
+	@RequestMapping(value="/task/rating", method = RequestMethod.GET)	
+	public ResponseEntity<Boolean> submitTask(@RequestParam("rating") Double rating,@RequestParam("taskId") String taskId) throws CoreException {								
+			
+		return new ResponseEntity<Boolean>(taskService.submitRatings(rating, taskId), HttpStatus.CREATED);
+	}
 }

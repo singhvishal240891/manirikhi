@@ -12,5 +12,12 @@ public interface TaskService {
 	public Boolean createTask(Task task) throws CoreException;
 	
 	public List<Task> getTasksPerUser(String userId) throws CoreException;
-		
+	
+	public Boolean acceptTask(String taskId,String workerId) throws CoreException;
+	
+	public Boolean rejectTask(String taskId,String workerId) throws CoreException;
+	
+	public Boolean markTaskCompleted(String taskId,String workerId) throws CoreException;
+
+	public Boolean submitRatings(Double rating,String taskId) throws CoreException;
 }

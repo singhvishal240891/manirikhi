@@ -25,6 +25,7 @@ private static final long serialVersionUID = 1L;
 	 * This list will have task ids and their ratings
 	 */
 	private List<String> taskIds;
+	private List<String> rejectedTaskIds;
 	
 	public String getWorkerId() {
 		return workerId;
@@ -67,5 +68,13 @@ private static final long serialVersionUID = 1L;
 	}
 	public void setWorkCredibility(Double workCredibility) {
 		this.workCredibility = workCredibility;
+	}
+	public List<String> getRejectedTaskIds() {
+		return rejectedTaskIds;
+	}
+	public void setRejectedTaskIds(List<String> rejectedTaskIds) {
+		this.rejectedTaskIds = rejectedTaskIds;
 	}	
+	
+	
 }

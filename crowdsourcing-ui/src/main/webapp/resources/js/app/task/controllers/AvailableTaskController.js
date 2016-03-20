@@ -4,24 +4,21 @@
 'use strict';
 app
 		.controller(
-				"TaskController",
+				"AvailableTaskController",
 				[
 						'$scope',
 						'$rootScope',
 						'$cookies',
-						'taskService',
-						'userService',
-						'dialogs',
+						'taskService',												
 						'NgTableParams',
 						'$filter',
+						 'dialogs',
 						'localStorageService',
-						function($scope, $rootScope, $cookies, taskService, userService,dialogs,
-								NgTableParams, $filter, localStorageService) {
-							$rootScope.tasks = localStorageService.get('task');
-							$rootScope.task = {};
-
-							// list of all tasks in system
-							$rootScope.tableParams = new NgTableParams(
+						function($scope, $rootScope, $cookies, taskService,
+								NgTableParams, $filter, dialogs,localStorageService) {														
+													
+							// new coming task for worker
+							$rootScope.workerTableParams = new NgTableParams(
 									{
 										page : 1, // show first page
 										count : 10, // count per page
@@ -33,10 +30,10 @@ app
 										}
 									},
 									{
-										getData : function(params) {
+										getData : function(params) {											
 											// ajax request to api
 											return taskService
-													.taskList()
+													.getAvailableTasks($cookies.get("userId"))
 													.then(
 															function(data) {
 																if (data.data) {
@@ -74,26 +71,44 @@ app
 															});
 										}
 									});
-														
-							$rootScope.createTask = function() {
-								
-								$scope.task.taskRating = 0.0;
-								$scope.task.taskCompleted = false;
-								$scope.task.taskAssigned = false;
-								$scope.task.clientId = $cookies.get("userId");
-								
-								taskService.saveTask($scope.task)
+							
+							// worker rejects the task
+							$rootScope.rejectTask = function(taskId) {
+								var confirmDlg = dialogs.confirm('Confirmation','Are you sure you want to reject the task ?',{size:'sm'});
+								confirmDlg.result.then(function(btn){
+									taskService
+									.rejectTask(taskId,$cookies.get("userId"))
+									.then(
+											function(data) {
+												if (data.data) {
+													$rootScope.userList();
+													dialogs.notify('Notification','Task rejected successfully!',{size:'sm'});
+													
+												} else {
+													dialogs.notify('Notification','Error while rejecting task!',{size:'sm'});
+												}
+											});
+								});
+							};
+							
+							// worker accepts the task
+							$rootScope.acceptTask = function(taskId) {																								
+								var confirmDlg = dialogs.confirm('Confirmation','Are you sure you want to accept the task ?',{size:'sm'});
+								confirmDlg.result.then(function(btn){
+								taskService.acceptTask(taskId,$cookies.get("userId"))
 								.then(
 										function(data) {
 											if (data.data) {
-												dialogs.notify('Notification','Task created successfully!',{size:'sm'});
-												$scope.task = {};
-												$scope.task.$setPristine();
+												dialogs.notify('Notification','Task accepted successfully!',{size:'sm'});												
 											} else {
-												dialogs.notify('Notification','Error while creating task!',{size:'sm'});
+												dialogs.notify('Notification','Error while accepting task!',{size:'sm'});
 											}
 										});
-																																														
-							};																			
+								});																																						
+							};
 							
 						}]);
+
+
+
+

@@ -6,8 +6,8 @@
 						<nav id="nav">
 							<ul>
 								<li ui-sref-active="current"><a ui-sref="index">Home</a></li>
-								<li ui-sref-active="current"><a ui-sref="tasks">My Task List</a></li>
-								<li ui-sref-active="current"><a ui-sref="createTask">Create Task</a></li>
+								<li ui-sref-active="current"><a ui-sref="userTasks">My Task List</a></li>
+								<li ui-sref-active="current"><a ui-sref="availableTasks">Available Task List</a></li>
 								<li ui-sref-active="current"><a ui-sref="profile" ng-click = "getUserById()">My Profile</a></li>
 								<li>Welcome :- {{userName}}</li>
 								<li ui-sref-active="current"><a href="/ui" ng-click="deleteAllCookies()">Sign Out</a></li>

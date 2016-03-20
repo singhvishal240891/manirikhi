@@ -4,7 +4,7 @@
 'use strict';
 app
 		.controller(
-				"TaskController",
+				"UserTaskController",
 				[
 						'$scope',
 						'$rootScope',
@@ -18,10 +18,18 @@ app
 						function($scope, $rootScope, $cookies, taskService, userService,dialogs,
 								NgTableParams, $filter, localStorageService) {
 							$rootScope.tasks = localStorageService.get('task');
-							$rootScope.task = {};
+							$rootScope.task = {};					
+							if($cookies.get("type")){
+								if($cookies.get("type").indexOf("client")>-1){
+									$rootScope.isClient = true;		
+								}
+								else{
+									$rootScope.isClient = false;
+								}
+							}
 
-							// list of all tasks in system
-							$rootScope.tableParams = new NgTableParams(
+							// task list as per worker id,client id
+							$rootScope.userTableParams = new NgTableParams(
 									{
 										page : 1, // show first page
 										count : 10, // count per page
@@ -36,7 +44,7 @@ app
 										getData : function(params) {
 											// ajax request to api
 											return taskService
-													.taskList()
+													.getTasksPerUser($cookies.get("userId"))
 													.then(
 															function(data) {
 																if (data.data) {
@@ -73,27 +81,43 @@ app
 																}
 															});
 										}
-									});
-														
-							$rootScope.createTask = function() {
-								
-								$scope.task.taskRating = 0.0;
-								$scope.task.taskCompleted = false;
-								$scope.task.taskAssigned = false;
-								$scope.task.clientId = $cookies.get("userId");
-								
-								taskService.saveTask($scope.task)
-								.then(
-										function(data) {
-											if (data.data) {
-												dialogs.notify('Notification','Task created successfully!',{size:'sm'});
-												$scope.task = {};
-												$scope.task.$setPristine();
-											} else {
-												dialogs.notify('Notification','Error while creating task!',{size:'sm'});
-											}
-										});
-																																														
-							};																			
+									});																																					
+							
+							// worker marks task complete
+							$rootScope.markTaskComplete = function(taskId) {
+								var confirmDlg = dialogs.confirm('Confirmation','Are you sure you want to mark the task completed?',{size:'sm'});
+								confirmDlg.result.then(function(btn){
+									taskService
+									.markTaskComplete(taskId,$cookies.get("userId"))
+									.then(
+											function(data) {
+												if (data.data) {
+													$rootScope.userList();
+													dialogs.notify('Notification','Task marked completed successfully!',{size:'sm'});
+													
+												} else {
+													dialogs.notify('Notification','Error while marking the task completed!',{size:'sm'});
+												}
+											});
+								});
+							};
+							
+							// client submit rating
+							$rootScope.submitRating = function(rating,taskId) {		
+								alert(rating,taskId);
+									taskService
+									.submitRating(rating,taskId)
+									.then(
+											function(data) {
+												if (data.data) {
+													$rootScope.userList();
+													dialogs.notify('Notification','Task marked completed successfully!',{size:'sm'});
+													
+												} else {
+													dialogs.notify('Notification','Error while marking the task completed!',{size:'sm'});
+												}
+											});								
+							};
+							
 							
 						}]);

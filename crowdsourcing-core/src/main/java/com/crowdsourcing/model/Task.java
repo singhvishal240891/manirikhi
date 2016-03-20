@@ -16,8 +16,8 @@ public class Task implements Serializable{
 	private String taskName;
 	private String taskDescription;
 	private String taskLocation;
-	private Double taskTimeLimit;	
-	private Double taskBudget;
+	private String taskTimeLimit;	
+	private String taskBudget;
 	private Double taskRating;
 	private Boolean taskCompleted;
 	private Boolean taskAssigned;
@@ -38,10 +38,10 @@ public class Task implements Serializable{
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
-	public Double getTaskTimeLimit() {
+	public String getTaskTimeLimit() {
 		return taskTimeLimit;
 	}
-	public void setTaskTimeLimit(Double taskTimeLimit) {
+	public void setTaskTimeLimit(String taskTimeLimit) {
 		this.taskTimeLimit = taskTimeLimit;
 	}
 	public String getTaskDescription() {
@@ -56,16 +56,16 @@ public class Task implements Serializable{
 	public void setTaskLocation(String taskLocation) {
 		this.taskLocation = taskLocation;
 	}
-	public Double getTaskLimit() {
+	public String getTaskLimit() {
 		return taskTimeLimit;
 	}
-	public void setTaskLimit(Double taskLimit) {
+	public void setTaskLimit(String taskLimit) {
 		this.taskTimeLimit = taskLimit;
 	}
-	public Double getTaskBudget() {
+	public String getTaskBudget() {
 		return taskBudget;
 	}
-	public void setTaskBudget(Double taskBudget) {
+	public void setTaskBudget(String taskBudget) {
 		this.taskBudget = taskBudget;
 	}		
 	public String getClientId() {
@@ -107,12 +107,13 @@ public class Task implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Task [taskId=" + taskId + ", taskName=" + taskName
-				+ ", taskDescription=" + taskDescription + ", taskLocation="
-				+ taskLocation + ", taskTimeLimit=" + taskTimeLimit
-				+ ", taskBudget=" + taskBudget + ", taskRating=" + taskRating
-				+ ", taskCompleted=" + taskCompleted + ", clientId=" + clientId
-				+ "]";
-	}		
+		return "Task [taskId=" + taskId + ", taskName=" + taskName + ", taskDescription=" + taskDescription
+				+ ", taskLocation=" + taskLocation + ", taskTimeLimit=" + taskTimeLimit + ", taskBudget=" + taskBudget
+				+ ", taskRating=" + taskRating + ", taskCompleted=" + taskCompleted + ", taskAssigned=" + taskAssigned
+				+ ", requiredSkills=" + requiredSkills + ", requiredCredibiliy=" + requiredCredibiliy + ", clientId="
+				+ clientId + "]";
+	}
+	
+	
 		
 }

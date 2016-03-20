@@ -47,21 +47,7 @@ public class ClientServiceImpl implements ClientService{
 	   	   
 	   return clientDAO.create(client);		   
 	}
-
-	@Override
-	public Boolean submitRatings(Double rating, String taskId,String workerId) throws CoreException{					
-		Task task = taskDAO.getById(taskId);
-		task.setTaskRating(rating);		
-		
-		taskDAO.create(task);
-		
-		//update credibility of worker
-		Worker worker = workerDAO.getById(workerId);
-		double credibilityAvg = (worker.getWorkCredibility()+rating)/2;
-		worker.setWorkCredibility(credibilityAvg);
-		
-		return workerDAO.create(worker);
-	}
+	
 	
 	@Override
 	public Boolean signUp(Client client) throws CoreException {		
